@@ -13,11 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.jetpackcomposeapp.Route
 import com.example.jetpackcomposeapp.ui.theme.BaseAppTheme
 
 @Composable
-fun Onboarding(navController: NavController, modifier: Modifier = Modifier) {
+fun Onboarding(navController: NavController, onClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -26,7 +25,7 @@ fun Onboarding(navController: NavController, modifier: Modifier = Modifier) {
         Text("名言リマインダーへようこそ")
         Button(
             modifier = Modifier.padding(vertical = 24.dp),
-            onClick = { navController.navigate(Route.MEIGEN_LIST.name) }
+            onClick = onClick
         ) {
             Text("続ける")
         }
@@ -38,6 +37,6 @@ fun Onboarding(navController: NavController, modifier: Modifier = Modifier) {
 fun OnboardingPreview() {
     val navController = rememberNavController()
     BaseAppTheme {
-        Onboarding(navController)
+        Onboarding(navController, {})
     }
 }
