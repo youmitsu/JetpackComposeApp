@@ -55,6 +55,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+
     val navVersion = "2.5.3"
 
     implementation("androidx.navigation:navigation-compose:$navVersion")

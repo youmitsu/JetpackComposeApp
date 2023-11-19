@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -15,4 +16,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "JetpackComposeApp"
 include(":app")
- 
+include(":core:ui")
+include(":data")
