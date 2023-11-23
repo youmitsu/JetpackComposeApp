@@ -9,7 +9,7 @@ internal fun configureAndroid(commonExtension: CommonExtension<*, *, *, *>) {
         compileSdk = 33
 
         defaultConfig {
-            minSdk = 30
+            minSdk = 26
             testInstrumentationRunner = "com.google.samples.modularization.testing.HiltTestRunner"
         }
 
