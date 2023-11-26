@@ -5,11 +5,16 @@ plugins {
 }
 
 android {
-    namespace = "com.example.core.ui"
+    namespace = "com.example.feature.list"
 }
 
 dependencies {
-    implementation(libs.androidx.material)
+    implementation(project(":core:ui"))
+    implementation(project(":data"))
+
+    // Compose
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.material.icons.extended)
 }
