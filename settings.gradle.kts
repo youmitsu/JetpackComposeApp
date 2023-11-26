@@ -18,3 +18,6 @@ rootProject.name = "JetpackComposeApp"
 include(":app")
 include(":core:ui")
 include(":data")
+include(":feature")
+include(":list")
+include(":feature:lists")

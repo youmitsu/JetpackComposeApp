@@ -18,7 +18,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
+    implementation(project(":core:ui"))
+    implementation(project(":feature:lists"))
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
