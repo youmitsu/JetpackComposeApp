@@ -21,8 +21,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.feature.list.ui.ListRoute
 import com.example.jetpackcomposeapp.R
 import com.example.jetpackcomposeapp.bottomNavItems
-import com.example.jetpackcomposeapp.screen.ReminderSetting
 import com.example.jetpackcomposeapp.screen.Screen
+import com.example.reminder.ui.ReminderRoute
 
 @Composable
 fun MainNavigation(navController: NavHostController = rememberNavController()) {
@@ -66,7 +66,7 @@ fun MainNavigation(navController: NavHostController = rememberNavController()) {
                 ListRoute()
             }
             composable(route = Screen.ReminderSetting.route) {
-                ReminderSetting()
+                ReminderRoute()
             }
         }
     }

@@ -20,6 +20,7 @@ android {
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":feature:list"))
+    implementation(project(":feature:reminder"))
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)

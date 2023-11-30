@@ -1,13 +1,18 @@
-package com.example.jetpackcomposeapp.screen
+package com.example.reminder.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ReminderSetting(
-    modifier: Modifier = Modifier,
+fun ReminderRoute() {
+    ReminderScreen()
+}
+
+@Composable
+internal fun ReminderScreen(
+    modifier: Modifier = Modifier
 ) {
     Column {
         Text("ReminderSetting")
