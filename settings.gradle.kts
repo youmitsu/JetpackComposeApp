@@ -16,9 +16,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "JetpackComposeApp"
 include(":app")
+include(":model")
 include(":core:ui")
-include(":data")
-include(":feature")
-include(":list")
 include(":feature:lists")
 include(":feature:list")
+include(":data:api")
+include(":data:repository")

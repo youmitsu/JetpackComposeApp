@@ -24,3 +24,29 @@ performance:
 
 potential-bugs:
   active: false
+
+formatting:
+  # always disable:
+  PackageName:
+    active: false
+  TrailingCommaOnCallSite:
+    active: false
+  TrailingCommaOnDeclarationSite:
+    active: false
+
+  # details configuring:
+  MaximumLineLength:
+    active: true
+    maxLineLength: 140
+  ArgumentListWrapping:
+    active: true
+    maxLineLength: 140
+  ParameterListWrapping:
+    active: true
+    maxLineLength: 140
+  PropertyWrapping:
+    active: true
+    maxLineLength: 140
+  Wrapping:
+    active: true
+    maxLineLength: 140

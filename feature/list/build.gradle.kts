@@ -10,7 +10,8 @@ android {
 
 dependencies {
     implementation(project(":core:ui"))
-    implementation(project(":data"))
+    implementation(project(":data:repository"))
+    implementation(project(":model"))
 
     // Compose
     implementation(libs.androidx.compose.ui)

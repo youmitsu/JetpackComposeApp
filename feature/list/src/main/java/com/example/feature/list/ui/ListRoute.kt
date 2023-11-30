@@ -1,4 +1,4 @@
-package com.example.feature.list
+package com.example.feature.list.ui
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.feature.list.R
 
 @Composable
 fun ListRoute() {
@@ -34,11 +37,13 @@ fun ListRoute() {
 @Composable
 internal fun ListScreen(
     modifier: Modifier = Modifier,
-    names: List<String> = List(1000) { "$it" }
+    listViewModel: ListViewModel = hiltViewModel()
 ) {
+    val uiState by listViewModel.uiState.collectAsState()
+
     LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
-        items(items = names) { name ->
-            Meigen(name = name)
+        items(items = uiState.currentItems) { item ->
+            Meigen(name = item.body)
         }
     }
 }

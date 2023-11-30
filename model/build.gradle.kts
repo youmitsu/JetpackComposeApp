@@ -20,13 +20,10 @@ plugins {
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.example.model"
 }
 
 dependencies {
-    implementation(libs.kotlinx.coroutines.android)
-
     // Unit testing
     testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
 }

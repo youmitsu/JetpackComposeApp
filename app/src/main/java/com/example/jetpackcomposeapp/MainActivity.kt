@@ -3,7 +3,6 @@ package com.example.jetpackcomposeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Alarm
 import androidx.compose.material.icons.filled.Home
@@ -14,7 +13,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcomposeapp.screen.Onboarding
 import com.example.jetpackcomposeapp.screen.Screen
@@ -62,13 +60,5 @@ private fun MeigenApp(
             })
         else
             MainNavigation()
-    }
-}
-
-@Preview
-@Composable
-fun MyAppPreview() {
-    BaseAppTheme {
-        MeigenApp(Modifier.fillMaxSize())
     }
 }

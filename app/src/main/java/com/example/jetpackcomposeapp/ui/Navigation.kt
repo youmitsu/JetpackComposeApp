@@ -5,9 +5,12 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -15,15 +18,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.feature.list.ListRoute
+import com.example.feature.list.ui.ListRoute
+import com.example.jetpackcomposeapp.R
 import com.example.jetpackcomposeapp.bottomNavItems
 import com.example.jetpackcomposeapp.screen.ReminderSetting
 import com.example.jetpackcomposeapp.screen.Screen
 
 @Composable
-fun MainNavigation(
-    navController: NavHostController = rememberNavController()
-) {
+fun MainNavigation(navController: NavHostController = rememberNavController()) {
     Scaffold(
         bottomBar = {
             BottomNavigation {
@@ -46,6 +48,13 @@ fun MainNavigation(
                         icon = { Icon(item.icon, contentDescription = null) })
                 }
             }
+        },
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(stringResource(id = R.string.app_name))
+                }
+            )
         }
     ) {
         NavHost(
