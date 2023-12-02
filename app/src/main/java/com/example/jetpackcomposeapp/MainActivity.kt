@@ -14,10 +14,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.rememberNavController
-import com.example.jetpackcomposeapp.screen.Onboarding
 import com.example.jetpackcomposeapp.screen.Screen
 import com.example.jetpackcomposeapp.ui.MainNavigation
-import com.example.jetpackcomposeapp.ui.theme.BaseAppTheme
+import com.example.onboarding.ui.Onboarding
+import com.example.ui.theme.BaseAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

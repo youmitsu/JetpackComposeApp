@@ -1,4 +1,4 @@
-package com.example.jetpackcomposeapp.ui.theme
+package com.example.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -13,4 +13,4 @@ val Pink40 = Color(0xFF7D5260)
 val Navy = Color(0xFF073042)
 val Blue = Color(0xFF4285F4)
 val LightBlue = Color(0xFFD7EFFE)
-val Chartreuse = Color(0xFFEFF7CF)
+val Chartreuse = Color(0xFFEFF7)

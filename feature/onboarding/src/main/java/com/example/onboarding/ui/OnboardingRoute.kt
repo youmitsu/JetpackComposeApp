@@ -1,4 +1,4 @@
-package com.example.jetpackcomposeapp.screen
+package com.example.onboarding.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.jetpackcomposeapp.ui.theme.BaseAppTheme
+import com.example.ui.theme.BaseAppTheme
 
 @Composable
 fun Onboarding(navController: NavController, onClick: () -> Unit, modifier: Modifier = Modifier) {
