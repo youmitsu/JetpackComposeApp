@@ -37,6 +37,7 @@
             <option value="$PROJECT_DIR$/feature/list" />
             <option value="$PROJECT_DIR$/feature/lists" />
             <option value="$PROJECT_DIR$/feature/onboarding" />
+            <option value="$PROJECT_DIR$/feature/registration" />
             <option value="$PROJECT_DIR$/feature/reminder" />
             <option value="$PROJECT_DIR$/model" />
           </set>

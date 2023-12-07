@@ -29,6 +29,7 @@ import com.example.feature.list.ui.ListRoute
 import com.example.jetpackcomposeapp.R
 import com.example.jetpackcomposeapp.screen.BottomNavScreen
 import com.example.jetpackcomposeapp.screen.Screen
+import com.example.registration.RegistrationRoute
 import com.example.reminder.ui.ReminderRoute
 
 sealed class BottomNavItem(
@@ -105,9 +106,7 @@ fun MainNavigation(navController: NavHostController = rememberNavController()) {
             }
         }
         composable(Screen.Register.route) {
-            Box {
-                Text("register")
-            }
+            RegistrationRoute()
         }
     }
 }

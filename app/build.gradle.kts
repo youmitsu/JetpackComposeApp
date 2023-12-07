@@ -22,6 +22,7 @@ dependencies {
     implementation(project(":core:util"))
     implementation(project(":feature:list"))
     implementation(project(":feature:reminder"))
+    implementation(project(":feature:registration"))
     implementation(project(":feature:onboarding"))
 
     // Core Android dependencies
