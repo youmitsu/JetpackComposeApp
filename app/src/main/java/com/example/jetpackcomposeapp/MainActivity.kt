@@ -30,20 +30,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-sealed class BottomNavItem(
-    val screen: Screen,
-    val icon: ImageVector
-) {
-    object HomeTab : BottomNavItem(Screen.MeigenList, Icons.Filled.Home)
-
-    object RemindSettingTab : BottomNavItem(Screen.ReminderSetting, Icons.Filled.Alarm)
-}
-
-val bottomNavItems = listOf(
-    BottomNavItem.HomeTab,
-    BottomNavItem.RemindSettingTab,
-)
-
 @Composable
 private fun MeigenApp(
     modifier: Modifier = Modifier,
