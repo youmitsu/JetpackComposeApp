@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,18 +35,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.feature.registration.R
 import com.example.registration.ui.RegistrationUiState
 import com.example.registration.ui.RegistrationViewModel
 import com.example.ui.theme.BaseAppTheme
 
 @Composable
-fun RegistrationRoute() {
-    RegistrationScreen()
+fun RegistrationRoute(navController: NavController) {
+    RegistrationScreen(navController)
 }
 
 @Composable
 fun RegistrationScreen(
+    navController: NavController,
     viewModel: RegistrationViewModel = hiltViewModel()
 ) {
     val state = viewModel.uiState.collectAsState()
@@ -57,6 +62,7 @@ fun RegistrationScreen(
     }
 
     Registration(
+        navController = navController,
         state = state.value,
         onUpdateTitle = viewModel::onUpdateTitle,
         onClickSave = viewModel::save,
@@ -66,6 +72,7 @@ fun RegistrationScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Registration(
+    navController: NavController,
     state: RegistrationUiState,
     onUpdateTitle: (value: String) -> Unit,
     onClickSave: () -> Unit,
@@ -73,6 +80,14 @@ fun Registration(
     Scaffold(
         topBar = {
             TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                },
                 title = {
                     Text("名言を登録")
                 },
@@ -146,17 +161,27 @@ fun SavedDialog() {
 @Preview(showBackground = true)
 @Composable
 fun RegistrationUiPreview() {
+    val navController = rememberNavController()
     val state = RegistrationUiState()
     BaseAppTheme {
-        Registration(state = state, onUpdateTitle = {}, onClickSave = {})
+        Registration(
+            navController = navController,
+            state = state,
+            onUpdateTitle = {},
+            onClickSave = {})
     }
 }
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun DarkRegistrationUiPreview() {
+    val navController = rememberNavController()
     val state = RegistrationUiState()
     BaseAppTheme {
-        Registration(state = state, onUpdateTitle = {}, onClickSave = {})
+        Registration(
+            navController = navController,
+            state = state,
+            onUpdateTitle = {},
+            onClickSave = {})
     }
 }

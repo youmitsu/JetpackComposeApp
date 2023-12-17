@@ -106,7 +106,7 @@ fun MainNavigation(navController: NavHostController = rememberNavController()) {
             }
         }
         composable(Screen.Register.route) {
-            RegistrationRoute()
+            RegistrationRoute(navController)
         }
     }
 }
