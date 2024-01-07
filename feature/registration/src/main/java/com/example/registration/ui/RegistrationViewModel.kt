@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.model.Meigen
 import com.example.repository.MeigenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,19 +39,19 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun save() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _uiState.update { currentState ->
                 currentState.copy(isLoading = true)
             }
-            val meigen = Meigen(
-                id = 0,
-                body = _uiState.value.title,
-            )
             try {
+                val meigenId = meigenRepository.createId()
+                val meigen = Meigen(
+                    id = meigenId,
+                    body = uiState.value.title,
+                    createdAt = Date(),
+                )
                 meigenRepository.save(meigen)
                 _onSavedEvent.emit(Unit)
-            } catch (e: Exception) {
-                // TODO
             } finally {
                 _uiState.update { currentState ->
                     currentState.copy(isLoading = false)

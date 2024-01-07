@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
+import java.util.Date
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
@@ -15,8 +16,8 @@ object ApiModule {
         return object : MeigenApiService {
             override suspend fun getMeigenList(): List<Meigen> {
                 return listOf(
-                    Meigen(1, "少年よ大志を抱け"),
-                    Meigen(2, "吾輩は猫である"),
+                    Meigen("a", "少年よ大志を抱け", Date()),
+                    Meigen("b", "吾輩は猫である", Date()),
                 )
             }
         }
