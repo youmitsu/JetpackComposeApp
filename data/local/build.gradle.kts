@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":model"))
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.room)
+    implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
     // Unit testing

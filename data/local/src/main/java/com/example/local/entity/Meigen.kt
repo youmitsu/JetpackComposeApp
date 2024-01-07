@@ -1,23 +1,28 @@
 package com.example.local.entity
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
 
-@Entity
+@Entity(tableName = "meigens")
 data class Meigen(
     @PrimaryKey val id: String,
     val body: String,
     val createdAt: Int,
-) {
-    companion object {
-        fun from(model: com.example.model.Meigen): Meigen {
-            return Meigen(
-                id = model.id,
-                body = model.body,
-                createdAt = model.createdAt.time.toInt(),
-            )
-        }
-    }
+)
+
+fun com.example.model.Meigen.toEntity(): Meigen {
+    return Meigen(
+        id = id,
+        body = body,
+        createdAt = createdAt.time.toInt(),
+    )
+}
+
+fun Meigen.toModel(): com.example.model.Meigen {
+    return com.example.model.Meigen(
+        id = id,
+        body = body,
+        createdAt = Date(this.createdAt.toLong()),
+    )
 }

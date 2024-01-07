@@ -3,14 +3,19 @@ package com.example.feature.list.ui
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,17 +40,30 @@ fun ListRoute() {
     ListScreen()
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun ListScreen(
     modifier: Modifier = Modifier,
     listViewModel: ListViewModel = hiltViewModel()
 ) {
     val uiState by listViewModel.uiState.collectAsState()
+    val state = rememberPullRefreshState(
+        refreshing = uiState.isRefreshing,
+        onRefresh = { listViewModel.refresh() }
+    )
 
-    LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
-        items(items = uiState.currentItems) { item ->
-            Meigen(name = item.body)
+    Box(modifier = modifier.pullRefresh(state)) {
+        LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
+            items(items = uiState.currentItems) { item ->
+                Meigen(name = item.body)
+            }
         }
+
+        PullRefreshIndicator(
+            refreshing = uiState.isRefreshing,
+            state = state,
+            modifier = Modifier.align(Alignment.TopCenter),
+        )
     }
 }
 

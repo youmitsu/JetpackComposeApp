@@ -2,6 +2,8 @@ package com.example.repository
 
 import com.example.api.MeigenApiService
 import com.example.local.dao.MeigenDao
+import com.example.local.entity.toEntity
+import com.example.local.entity.toModel
 import com.example.model.Meigen
 import java.util.UUID
 import javax.inject.Inject
@@ -21,11 +23,14 @@ class MeigenRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAll(): List<Meigen> {
-        return meigenApiService.getMeigenList()
+        val meigens = meigenDao.getAll()
+        return meigens.map {
+            it.toModel()
+        }
     }
 
     override suspend fun save(meigen: Meigen) {
-        val serialized = com.example.local.entity.Meigen.from(meigen)
+        val serialized = meigen.toEntity()
         meigenDao.insertAll(serialized)
     }
 }

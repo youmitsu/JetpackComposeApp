@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.repository.MeigenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,10 +21,25 @@ class ListViewModel @Inject constructor(
     val uiState: StateFlow<ListUiState> = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val meigenList = meigenRepository.getAll()
             _uiState.update { currentState ->
                 currentState.copy(currentItems = meigenList)
+            }
+        }
+    }
+
+    fun refresh() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                isRefreshing = true
+            )
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            delay(1000)
+            val meigenList = meigenRepository.getAll()
+            _uiState.update { currentState ->
+                currentState.copy(currentItems = meigenList, isRefreshing = false)
             }
         }
     }
