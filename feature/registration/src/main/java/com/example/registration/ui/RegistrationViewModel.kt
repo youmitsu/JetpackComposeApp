@@ -42,8 +42,8 @@ class RegistrationViewModel @Inject constructor(
                 currentState.copy(isLoading = true)
             }
             val meigen = Meigen(
+                id = 0,
                 body = _uiState.value.title,
-                from = ""
             )
             try {
                 meigenRepository.save(meigen)

@@ -15,8 +15,8 @@ object ApiModule {
         return object : MeigenApiService {
             override suspend fun getMeigenList(): List<Meigen> {
                 return listOf(
-                    Meigen("少年よ大志を抱け", "ギリシャのなんか"),
-                    Meigen("吾輩は猫である", "夏目漱石"),
+                    Meigen(1, "少年よ大志を抱け"),
+                    Meigen(2, "吾輩は猫である"),
                 )
             }
         }

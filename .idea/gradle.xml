@@ -31,6 +31,7 @@
             <option value="$PROJECT_DIR$/core/util" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/api" />
+            <option value="$PROJECT_DIR$/data/local" />
             <option value="$PROJECT_DIR$/data/preferences" />
             <option value="$PROJECT_DIR$/data/repository" />
             <option value="$PROJECT_DIR$/feature" />

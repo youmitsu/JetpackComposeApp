@@ -25,6 +25,7 @@ espresso-core = "3.5.1"
 appcompat = "1.6.1"
 com-google-android-material-material = "1.8.0"
 detekt-formatting = "1.23.0"
+room = "2.5.0"
 
 [libraries]
 android-tools-build-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -66,6 +67,8 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "com-google-android-material-material" }
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt-formatting" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room = { group = "androidx.room", name = "room-runtime", version.ref = "room"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
