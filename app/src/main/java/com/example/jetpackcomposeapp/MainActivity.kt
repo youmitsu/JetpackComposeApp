@@ -40,6 +40,6 @@ private fun MeigenApp(
                 onboardingDisplayed = true
             })
         else
-            MainNavigation()
+            MainNavigation(navController)
     }
 }

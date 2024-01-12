@@ -1,6 +1,5 @@
 package com.example.jetpackcomposeapp.ui
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -49,7 +48,7 @@ sealed class BottomNavItem(
 }
 
 @Composable
-fun MainNavigation(navController: NavHostController = rememberNavController()) {
+fun MainNavigation(navController: NavHostController) {
     val bottomNavController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.Home.route) {
         composable(Screen.Home.route) {
@@ -97,7 +96,7 @@ fun MainNavigation(navController: NavHostController = rememberNavController()) {
                     modifier = Modifier.padding(it)
                 ) {
                     composable(BottomNavScreen.MeigenList.route) {
-                        ListRoute()
+                        ListRoute(navController)
                     }
                     composable(route = BottomNavScreen.ReminderSetting.route) {
                         ReminderRoute()

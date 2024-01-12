@@ -21,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,15 +34,30 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.feature.list.R
 import com.example.ui.theme.BaseAppTheme
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ListRoute(
+    navController: NavController,
     listViewModel: ListViewModel = hiltViewModel()
 ) {
     val uiState by listViewModel.uiState.collectAsState()
+
+    DisposableEffect(Unit) {
+        val listener: NavController.OnDestinationChangedListener =
+            NavController.OnDestinationChangedListener { controller, destination, arguments ->
+                if (destination.route == "home") {
+                    // TODO: 更新があったときのみリロードする
+                    listViewModel.refresh()
+                }
+            }
+        navController.addOnDestinationChangedListener(listener)
+        onDispose {
+            navController.removeOnDestinationChangedListener(listener)
+        }
+    }
 
     ListScreen(
         onRefresh = listViewModel::refresh,
