@@ -22,11 +22,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.feature.list.R
+import com.example.navigation.Screen
 import com.example.ui.theme.BaseAppTheme
 
 @Composable
@@ -44,6 +45,12 @@ fun ListRoute(
     listViewModel: ListViewModel = hiltViewModel()
 ) {
     val uiState by listViewModel.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        listViewModel.onEditClickEvent.collect {
+            navController.navigate(Screen.Edit.createRoute(it))
+        }
+    }
 
     DisposableEffect(Unit) {
         val listener: NavController.OnDestinationChangedListener =
@@ -61,6 +68,7 @@ fun ListRoute(
 
     ListScreen(
         onRefresh = listViewModel::refresh,
+        onClickEdit = listViewModel::onClickEdit,
         uiState = uiState,
     )
 }
@@ -70,6 +78,7 @@ fun ListRoute(
 internal fun ListScreen(
     uiState: ListUiState,
     onRefresh: () -> Unit,
+    onClickEdit: (id: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val state = rememberPullRefreshState(
@@ -79,7 +88,7 @@ internal fun ListScreen(
     Box(modifier = modifier.pullRefresh(state)) {
         LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
             items(items = uiState.currentItems) { item ->
-                Meigen(title = item.body)
+                Meigen(title = item.body, onClickEdit = { onClickEdit(item.id) })
             }
         }
 
@@ -92,8 +101,8 @@ internal fun ListScreen(
 }
 
 @Composable
-private fun Meigen(title: String, modifier: Modifier = Modifier) {
-    var expanded by remember {
+private fun Meigen(title: String, onClickEdit: () -> Unit, modifier: Modifier = Modifier) {
+    val expanded by remember {
         mutableStateOf(false)
     }
     val extraPadding by animateDpAsState(
@@ -117,7 +126,7 @@ private fun Meigen(title: String, modifier: Modifier = Modifier) {
                     fontWeight = FontWeight.ExtraBold
                 )
             )
-            IconButton(onClick = {}) {
+            IconButton(onClick = onClickEdit) {
                 Icon(
                     imageVector = Icons.Filled.Edit,
                     contentDescription = stringResource(R.string.edit)
@@ -153,6 +162,7 @@ fun GreetingPreview() {
                 )
             ),
             onRefresh = {},
+            onClickEdit = {},
         )
     }
 }

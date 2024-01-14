@@ -10,6 +10,9 @@ interface MeigenDao {
     @Insert
     fun insertAll(vararg maigens: Meigen)
 
+    @Query("SELECT * FROM meigens WHERE id = :id")
+    suspend fun findById(id: String): Meigen
+
     @Query("SELECT * FROM meigens ORDER BY createdAt DESC")
     suspend fun getAll(): List<Meigen>
 }

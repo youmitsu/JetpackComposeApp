@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -19,17 +20,19 @@ import com.example.common.SaveButton
 import com.example.ui.theme.BaseAppTheme
 
 @Composable
-fun EditRoute(navController: NavController) {
-    EditScreen(navController)
+fun EditRoute(id: String, navController: NavController) {
+    EditScreen(id, navController)
 }
 
 @Composable
 fun EditScreen(
+    id: String,
     navController: NavController,
 ) {
     Edit(
+        id = id,
         isLoading = false,
-        onClickNavIcon = { navController.popBackStack() },
+        onClickNavIcon = { navController.navigateUp() },
         onClickSave = {},
         onClickDelete = {}
     )
@@ -37,6 +40,7 @@ fun EditScreen(
 
 @Composable
 fun Edit(
+    id: String,
     isLoading: Boolean,
     onClickNavIcon: () -> Unit,
     onClickSave: () -> Unit,
@@ -54,7 +58,7 @@ fun Edit(
                     }
                 },
                 title = {
-                    androidx.compose.material3.Text("名言を編集")
+                    Text("名言を編集${id}")
                 },
                 actions = {
                     IconButton(
@@ -88,6 +92,7 @@ fun Edit(
 fun EditPreview() {
     BaseAppTheme {
         Edit(
+            id = "",
             isLoading = false,
             onClickNavIcon = {},
             onClickSave = {},
@@ -101,6 +106,7 @@ fun EditPreview() {
 fun EditPreviewDark() {
     BaseAppTheme {
         Edit(
+            id = "",
             isLoading = false,
             onClickNavIcon = {},
             onClickSave = {},

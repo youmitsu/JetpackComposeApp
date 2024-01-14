@@ -10,8 +10,9 @@ import javax.inject.Inject
 
 interface MeigenRepository {
     fun createId(): String
+    suspend fun get(meigenId: String): Meigen
     suspend fun getAll(): List<Meigen>
-    suspend fun save(meigen: Meigen): Unit
+    suspend fun save(meigen: Meigen)
 }
 
 class MeigenRepositoryImpl @Inject constructor(
@@ -20,6 +21,11 @@ class MeigenRepositoryImpl @Inject constructor(
 ) : MeigenRepository {
     override fun createId(): String {
         return UUID.randomUUID().toString()
+    }
+
+    override suspend fun get(meigenId: String): Meigen {
+        val meigen = meigenDao.findById(meigenId)
+        return meigen.toModel()
     }
 
     override suspend fun getAll(): List<Meigen> {

@@ -20,14 +20,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.edit.EditRoute
 import com.example.feature.list.ui.ListRoute
 import com.example.jetpackcomposeapp.R
-import com.example.jetpackcomposeapp.screen.BottomNavScreen
-import com.example.jetpackcomposeapp.screen.Screen
+import com.example.navigation.BottomNavScreen
+import com.example.navigation.Screen
 import com.example.registration.RegistrationRoute
 import com.example.reminder.ui.ReminderRoute
 
@@ -50,12 +53,12 @@ sealed class BottomNavItem(
 @Composable
 fun MainNavigation(navController: NavHostController) {
     val bottomNavController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
-        composable(Screen.Home.route) {
+    NavHost(navController = navController, startDestination = Screen.Home.routeName) {
+        composable(Screen.Home.routeName) {
             Scaffold(
                 floatingActionButton = {
                     FloatingActionButton(onClick = {
-                        navController.navigate(Screen.Register.route)
+                        navController.navigate(Screen.Register.routeName)
                     }) {
                         Icon(Icons.Filled.Add, contentDescription = "追加")
                     }
@@ -104,8 +107,18 @@ fun MainNavigation(navController: NavHostController) {
                 }
             }
         }
-        composable(Screen.Register.route) {
+        composable(Screen.Register.routeName) {
             RegistrationRoute(navController)
+        }
+        composable(
+            Screen.Edit.routeName, arguments = listOf(
+                navArgument(Screen.Edit.argumentName) { type = NavType.StringType },
+            )
+        ) {
+            val meigenId = it.arguments?.getString(Screen.Edit.argumentName)
+            meigenId?.let { id ->
+                EditRoute(id = id, navController = navController)
+            } ?: throw IllegalArgumentException("meigenId is null")
         }
     }
 }
