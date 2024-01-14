@@ -2,18 +2,11 @@ package com.example.registration
 
 import android.content.res.Configuration
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,17 +19,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.common.SaveButton
 import com.example.feature.registration.R
 import com.example.registration.ui.RegistrationUiState
 import com.example.registration.ui.RegistrationViewModel
@@ -119,41 +109,6 @@ fun Registration(
                     Text("メモしたい名言を入力", color = MaterialTheme.colorScheme.secondary)
                 }
             )
-        }
-    }
-}
-
-@Composable
-fun SaveButton(isLoading: Boolean, onClick: () -> Unit) {
-    if (isLoading) {
-        return CircularProgressIndicator(
-            modifier = Modifier.padding(end = 16.dp)
-        )
-    }
-    Button(onClick = onClick) {
-        Icon(
-            Icons.Filled.Check,
-            contentDescription = stringResource(id = R.string.save)
-        )
-    }
-}
-
-@Composable
-fun SavedDialog() {
-    Dialog(onDismissRequest = {}) {
-        Card(
-            modifier = Modifier
-                .fillMaxSize()
-                .height(375.dp)
-                .padding(16.dp)
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = stringResource(id = R.string.saved_dialog_title))
-            }
         }
     }
 }
