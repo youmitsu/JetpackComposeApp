@@ -58,6 +58,7 @@ fun EditScreen(
                 }
 
                 EditEvent.Deleted -> {
+                    Toast.makeText(context, R.string.delete_dialog_title, Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                 }
             }
