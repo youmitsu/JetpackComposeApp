@@ -14,6 +14,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+enum class EditEvent {
+    Saved,
+    Deleted,
+}
+
 @HiltViewModel
 class EditViewModel @Inject constructor(
     private val meigenRepository: MeigenRepository
@@ -21,7 +26,7 @@ class EditViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(EditUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val _onSavedEvent = Channel<String>(Channel.UNLIMITED)
+    private val _onSavedEvent = Channel<EditEvent>(Channel.UNLIMITED)
     val onSavedEvent = _onSavedEvent.receiveAsFlow()
 
     fun load(meigenId: String) {
@@ -67,7 +72,31 @@ class EditViewModel @Inject constructor(
                         )
                     )
                 }
-                _onSavedEvent.send(meigen.id)
+                _onSavedEvent.send(EditEvent.Saved)
+            } finally {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                    )
+                }
+            }
+        }
+    }
+
+    fun delete() {
+        val meigen = _uiState.value.meigen ?: return
+
+        _uiState.update {
+            it.copy(
+                isLoading = true,
+            )
+        }
+        viewModelScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    meigenRepository.delete(meigen.id)
+                }
+                _onSavedEvent.send(EditEvent.Deleted)
             } finally {
                 _uiState.update {
                     it.copy(

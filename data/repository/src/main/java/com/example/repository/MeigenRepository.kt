@@ -15,6 +15,8 @@ interface MeigenRepository {
     suspend fun save(meigen: Meigen)
 
     suspend fun upsert(meigen: Meigen)
+
+    suspend fun delete(meigenId: String)
 }
 
 class MeigenRepositoryImpl @Inject constructor(
@@ -45,5 +47,9 @@ class MeigenRepositoryImpl @Inject constructor(
     override suspend fun upsert(meigen: Meigen) {
         val serialized = meigen.toEntity()
         meigenDao.upsert(serialized)
+    }
+
+    override suspend fun delete(meigenId: String) {
+        meigenDao.deleteById(meigenId)
     }
 }

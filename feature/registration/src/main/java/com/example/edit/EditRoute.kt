@@ -52,7 +52,15 @@ fun EditScreen(
     }
     LaunchedEffect(Unit) {
         viewModel.onSavedEvent.collect {
-            Toast.makeText(context, R.string.saved_dialog_title, Toast.LENGTH_SHORT).show()
+            when (it) {
+                EditEvent.Saved -> {
+                    Toast.makeText(context, R.string.saved_dialog_title, Toast.LENGTH_SHORT).show()
+                }
+
+                EditEvent.Deleted -> {
+                    navController.navigateUp()
+                }
+            }
         }
     }
     Edit(
@@ -60,7 +68,7 @@ fun EditScreen(
         onUpdateBody = viewModel::onUpdateBody,
         onClickNavIcon = { navController.navigateUp() },
         onClickSave = viewModel::save,
-        onClickDelete = {}
+        onClickDelete = viewModel::delete,
     )
 }
 
