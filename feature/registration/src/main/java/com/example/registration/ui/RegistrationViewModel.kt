@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Date
 import javax.inject.Inject
 
@@ -39,7 +40,7 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun save() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _uiState.update { currentState ->
                 currentState.copy(isLoading = true)
             }
@@ -50,7 +51,9 @@ class RegistrationViewModel @Inject constructor(
                     body = uiState.value.title,
                     createdAt = Date(),
                 )
-                meigenRepository.save(meigen)
+                withContext(Dispatchers.IO) {
+                    meigenRepository.save(meigen)
+                }
                 _onSavedEvent.emit(Unit)
             } finally {
                 _uiState.update { currentState ->
