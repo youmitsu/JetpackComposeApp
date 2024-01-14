@@ -1,5 +1,5 @@
 <resources>
     <string name="save">登録</string>
     <!--Dialog-->
-    <string name="saved_dialog_title">登録しました</string>
+    <string name="saved_dialog_title">更新しました</string>
 </resources>

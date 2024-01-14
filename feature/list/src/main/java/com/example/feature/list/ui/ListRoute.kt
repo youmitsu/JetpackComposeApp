@@ -1,9 +1,6 @@
 package com.example.feature.list.ui
 
 import android.content.res.Configuration
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -25,8 +22,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -55,7 +50,7 @@ fun ListRoute(
     DisposableEffect(Unit) {
         val listener: NavController.OnDestinationChangedListener =
             NavController.OnDestinationChangedListener { controller, destination, arguments ->
-                if (destination.route == "home") {
+                if (destination.route == Screen.Home.routeName) {
                     // TODO: 更新があったときのみリロードする
                     listViewModel.refresh()
                 }
@@ -102,18 +97,6 @@ internal fun ListScreen(
 
 @Composable
 private fun Meigen(title: String, onClickEdit: () -> Unit, modifier: Modifier = Modifier) {
-    val expanded by remember {
-        mutableStateOf(false)
-    }
-    val extraPadding by animateDpAsState(
-        if (expanded) 48.dp else 0.dp,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
-        ),
-        label = ""
-    )
-
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)

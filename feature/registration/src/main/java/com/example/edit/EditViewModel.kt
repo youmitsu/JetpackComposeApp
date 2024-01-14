@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.repository.MeigenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,10 +21,12 @@ class EditViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(EditUiState())
     val uiState = _uiState.asStateFlow()
 
+    private val _onSavedEvent = Channel<String>(Channel.UNLIMITED)
+    val onSavedEvent = _onSavedEvent.receiveAsFlow()
+
     fun load(meigenId: String) {
         _uiState.update {
             it.copy(
-                id = meigenId, // FIXME: viewModelのconstructorでidを初期化したいが、hiltViewModel()を使ってAssistedInjectができない
                 isLoading = true,
             )
         }
@@ -33,6 +37,8 @@ class EditViewModel @Inject constructor(
                 }
                 _uiState.update {
                     it.copy(
+                        id = meigenId, // FIXME: viewModelのconstructorでidを初期化したいが、hiltViewModel()を使ってAssistedInjectができない
+                        meigen = meigen,
                         body = meigen.body,
                     )
                 }
@@ -45,10 +51,38 @@ class EditViewModel @Inject constructor(
     }
 
     fun save() {
+        val meigen = _uiState.value.meigen ?: return
 
+        _uiState.update {
+            it.copy(
+                isLoading = true,
+            )
+        }
+        viewModelScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    meigenRepository.upsert(
+                        meigen.copy(
+                            body = _uiState.value.body,
+                        )
+                    )
+                }
+                _onSavedEvent.send(meigen.id)
+            } finally {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                    )
+                }
+            }
+        }
     }
 
-    companion object {
-        const val KEY_MEIGEN_ID = "meigen_id"
+    fun onUpdateBody(body: String) {
+        _uiState.update {
+            it.copy(
+                body = body,
+            )
+        }
     }
 }

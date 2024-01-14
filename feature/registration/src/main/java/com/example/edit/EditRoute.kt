@@ -1,6 +1,7 @@
 package com.example.edit
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,11 +23,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.common.SaveButton
+import com.example.feature.registration.R
+import com.example.model.Meigen
 import com.example.ui.theme.BaseAppTheme
+import java.util.Date
 
 @Composable
 fun EditRoute(id: String, navController: NavController) {
@@ -40,15 +45,21 @@ fun EditScreen(
     viewModel: EditViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.load(id)
     }
+    LaunchedEffect(Unit) {
+        viewModel.onSavedEvent.collect {
+            Toast.makeText(context, R.string.saved_dialog_title, Toast.LENGTH_SHORT).show()
+        }
+    }
     Edit(
         state = uiState,
-        onUpdateBody = {},
+        onUpdateBody = viewModel::onUpdateBody,
         onClickNavIcon = { navController.navigateUp() },
-        onClickSave = {},
+        onClickSave = viewModel::save,
         onClickDelete = {}
     )
 }
@@ -120,11 +131,17 @@ fun Edit(
 @Preview(showBackground = true)
 @Composable
 fun EditPreview() {
+    val meigen = Meigen(
+        id = "1",
+        body = "吾輩は猫である。名前はまだない",
+        createdAt = Date()
+    )
     BaseAppTheme {
         Edit(
             state = EditUiState(
-                id = "",
-                body = "吾輩は猫である。名前はまだない",
+                id = meigen.id,
+                body = meigen.body,
+                meigen = meigen,
             ),
             onUpdateBody = {},
             onClickNavIcon = {},
@@ -137,11 +154,17 @@ fun EditPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun EditPreviewDark() {
+    val meigen = Meigen(
+        id = "1",
+        body = "吾輩は猫である。名前はまだない",
+        createdAt = Date()
+    )
     BaseAppTheme {
         Edit(
             state = EditUiState(
-                id = "",
-                body = "吾輩は猫である。名前はまだない",
+                id = meigen.id,
+                body = meigen.body,
+                meigen = meigen,
             ),
             onUpdateBody = {},
             onClickNavIcon = {},

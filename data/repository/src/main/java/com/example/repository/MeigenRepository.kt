@@ -13,6 +13,8 @@ interface MeigenRepository {
     suspend fun get(meigenId: String): Meigen
     suspend fun getAll(): List<Meigen>
     suspend fun save(meigen: Meigen)
+
+    suspend fun upsert(meigen: Meigen)
 }
 
 class MeigenRepositoryImpl @Inject constructor(
@@ -38,5 +40,10 @@ class MeigenRepositoryImpl @Inject constructor(
     override suspend fun save(meigen: Meigen) {
         val serialized = meigen.toEntity()
         meigenDao.insertAll(serialized)
+    }
+
+    override suspend fun upsert(meigen: Meigen) {
+        val serialized = meigen.toEntity()
+        meigenDao.upsert(serialized)
     }
 }
