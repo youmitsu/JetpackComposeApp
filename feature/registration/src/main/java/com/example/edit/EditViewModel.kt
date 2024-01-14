@@ -3,9 +3,6 @@ package com.example.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.repository.MeigenRepository
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,18 +10,21 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-@HiltViewModel(assistedFactory = EditViewModelFactory::class)
-class EditViewModel @AssistedInject constructor(
-    @Assisted private val meigenId: String,
+@HiltViewModel
+class EditViewModel @Inject constructor(
     private val meigenRepository: MeigenRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(EditUiState())
     val uiState = _uiState.asStateFlow()
 
-    fun load() {
+    fun load(meigenId: String) {
         _uiState.update {
-            it.copy(isLoading = true)
+            it.copy(
+                id = meigenId, // FIXME: viewModelのconstructorでidを初期化したいが、hiltViewModel()を使ってAssistedInjectができない
+                isLoading = true,
+            )
         }
         viewModelScope.launch {
             try {
@@ -43,9 +43,12 @@ class EditViewModel @AssistedInject constructor(
             }
         }
     }
-}
 
-@AssistedFactory
-interface EditViewModelFactory {
-    fun create(meigenId: String): EditViewModel
+    fun save() {
+
+    }
+
+    companion object {
+        const val KEY_MEIGEN_ID = "meigen_id"
+    }
 }

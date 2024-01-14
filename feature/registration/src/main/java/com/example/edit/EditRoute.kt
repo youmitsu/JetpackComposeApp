@@ -10,11 +10,20 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.common.SaveButton
 import com.example.ui.theme.BaseAppTheme
@@ -28,20 +37,27 @@ fun EditRoute(id: String, navController: NavController) {
 fun EditScreen(
     id: String,
     navController: NavController,
+    viewModel: EditViewModel = hiltViewModel(),
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.load(id)
+    }
     Edit(
-        id = id,
-        isLoading = false,
+        state = uiState,
+        onUpdateBody = {},
         onClickNavIcon = { navController.navigateUp() },
         onClickSave = {},
         onClickDelete = {}
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Edit(
-    id: String,
-    isLoading: Boolean,
+    state: EditUiState,
+    onUpdateBody: (String) -> Unit,
     onClickNavIcon: () -> Unit,
     onClickSave: () -> Unit,
     onClickDelete: () -> Unit,
@@ -58,7 +74,7 @@ fun Edit(
                     }
                 },
                 title = {
-                    Text("名言を編集${id}")
+                    Text("名言を編集")
                 },
                 actions = {
                     IconButton(
@@ -70,7 +86,7 @@ fun Edit(
                         )
                     }
                     SaveButton(
-                        isLoading = isLoading,
+                        isLoading = state.isLoading,
                         onClick = onClickSave
                     )
                 }
@@ -82,7 +98,21 @@ fun Edit(
                 .padding(it)
                 .fillMaxSize()
         ) {
-
+            TextField(
+                value = state.body,
+                onValueChange = onUpdateBody,
+                modifier = Modifier
+                    .fillMaxSize(),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color.Transparent,
+                ),
+                placeholder = {
+                    Text(
+                        "メモしたい名言を入力",
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+                }
+            )
         }
     }
 }
@@ -92,8 +122,11 @@ fun Edit(
 fun EditPreview() {
     BaseAppTheme {
         Edit(
-            id = "",
-            isLoading = false,
+            state = EditUiState(
+                id = "",
+                body = "吾輩は猫である。名前はまだない",
+            ),
+            onUpdateBody = {},
             onClickNavIcon = {},
             onClickSave = {},
             onClickDelete = {}
@@ -106,8 +139,11 @@ fun EditPreview() {
 fun EditPreviewDark() {
     BaseAppTheme {
         Edit(
-            id = "",
-            isLoading = false,
+            state = EditUiState(
+                id = "",
+                body = "吾輩は猫である。名前はまだない",
+            ),
+            onUpdateBody = {},
             onClickNavIcon = {},
             onClickSave = {},
             onClickDelete = {}
