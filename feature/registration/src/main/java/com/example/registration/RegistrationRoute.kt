@@ -123,7 +123,8 @@ fun RegistrationUiPreview() {
             navController = navController,
             state = state,
             onUpdateTitle = {},
-            onClickSave = {})
+            onClickSave = {},
+        )
     }
 }
 

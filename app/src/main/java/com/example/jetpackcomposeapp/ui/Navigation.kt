@@ -9,9 +9,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddAlarm
 import androidx.compose.material.icons.filled.Alarm
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.PostAdd
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.create.ui.ReminderCreateRoute
 import com.example.edit.EditRoute
 import com.example.feature.list.ui.ListRoute
 import com.example.jetpackcomposeapp.R
@@ -53,14 +55,27 @@ sealed class BottomNavItem(
 @Composable
 fun MainNavigation(navController: NavHostController) {
     val bottomNavController = rememberNavController()
+    val currentBottomTab by bottomNavController.currentBackStackEntryAsState()
     NavHost(navController = navController, startDestination = Screen.Home.routeName) {
         composable(Screen.Home.routeName) {
             Scaffold(
                 floatingActionButton = {
-                    FloatingActionButton(onClick = {
-                        navController.navigate(Screen.Register.routeName)
-                    }) {
-                        Icon(Icons.Filled.Add, contentDescription = "追加")
+                    when (currentBottomTab?.destination?.route) {
+                        BottomNavScreen.MeigenList.route -> {
+                            FloatingActionButton(onClick = {
+                                navController.navigate(Screen.Register.routeName)
+                            }) {
+                                Icon(Icons.Filled.PostAdd, contentDescription = "追加")
+                            }
+                        }
+
+                        BottomNavScreen.ReminderSetting.route -> {
+                            FloatingActionButton(onClick = {
+                                navController.navigate(Screen.ReminderCreate.routeName)
+                            }) {
+                                Icon(Icons.Filled.AddAlarm, contentDescription = "追加")
+                            }
+                        }
                     }
                 },
                 bottomBar = {
@@ -119,6 +134,11 @@ fun MainNavigation(navController: NavHostController) {
             meigenId?.let { id ->
                 EditRoute(id = id, navController = navController)
             } ?: throw IllegalArgumentException("meigenId is null")
+        }
+        composable(
+            Screen.ReminderCreate.routeName
+        ) {
+            ReminderCreateRoute()
         }
     }
 }
