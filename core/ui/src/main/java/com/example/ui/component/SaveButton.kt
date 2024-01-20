@@ -1,4 +1,4 @@
-package com.example.common
+package com.example.ui.component
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.feature.registration.R
+import com.example.core.ui.R
 
 @Composable
 fun SaveButton(isLoading: Boolean, onClick: () -> Unit) {

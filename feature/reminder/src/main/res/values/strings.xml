@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_create_app_bar_title">リマインダーを登録</string>
+    <string name="reminder_form_title">タイトル</string>
+</resources>
