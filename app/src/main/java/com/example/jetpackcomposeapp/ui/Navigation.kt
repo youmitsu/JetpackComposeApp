@@ -138,7 +138,7 @@ fun MainNavigation(navController: NavHostController) {
         composable(
             Screen.ReminderCreate.routeName
         ) {
-            ReminderCreateRoute()
+            ReminderCreateRoute(navController)
         }
     }
 }
