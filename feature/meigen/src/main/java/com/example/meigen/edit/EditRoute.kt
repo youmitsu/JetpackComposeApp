@@ -27,7 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.feature.list.R
+import com.example.meigen.R
 import com.example.model.Meigen
 import com.example.ui.component.SaveButton
 import com.example.ui.theme.BaseAppTheme

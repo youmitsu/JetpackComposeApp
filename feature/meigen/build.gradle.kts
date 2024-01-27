@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.feature.list"
+    namespace = "com.example.meigen"
 }
 
 dependencies {

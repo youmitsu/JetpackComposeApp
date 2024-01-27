@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.feature.list.R
+import com.example.meigen.R
 import com.example.navigation.Screen
 import com.example.ui.theme.BaseAppTheme
 import java.util.Date

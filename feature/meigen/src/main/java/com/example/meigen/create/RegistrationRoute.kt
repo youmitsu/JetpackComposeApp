@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.feature.list.R
+import com.example.meigen.R
 import com.example.meigen.create.ui.RegistrationUiState
 import com.example.meigen.create.ui.RegistrationViewModel
 import com.example.ui.component.SaveButton
