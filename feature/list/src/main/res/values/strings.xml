@@ -1,7 +1,0 @@
-<resources>
-    <string name="show_less">Show less</string>
-    <string name="show_more">Show more</string>
-
-    <string name="edit">編集</string>
-    <string name="delete">削除</string>
-</resources>

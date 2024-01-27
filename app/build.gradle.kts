@@ -20,9 +20,8 @@ android {
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:util"))
-    implementation(project(":feature:list"))
+    implementation(project(":feature:meigen"))
     implementation(project(":feature:reminder"))
-    implementation(project(":feature:registration"))
     implementation(project(":feature:onboarding"))
 
     // Core Android dependencies

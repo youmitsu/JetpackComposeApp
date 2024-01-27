@@ -1,0 +1,12 @@
+<resources>
+    <string name="show_less">Show less</string>
+    <string name="show_more">Show more</string>
+
+    <string name="save">登録</string>
+    <string name="edit">編集</string>
+    <string name="delete">削除</string>
+
+    <!--Dialog-->
+    <string name="saved_dialog_title">更新しました</string>
+    <string name="delete_dialog_title">削除しました</string>
+</resources>
