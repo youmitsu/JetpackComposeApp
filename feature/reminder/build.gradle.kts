@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.feature.reminder"
+    namespace = "com.example.reminder"
 }
 
 dependencies {

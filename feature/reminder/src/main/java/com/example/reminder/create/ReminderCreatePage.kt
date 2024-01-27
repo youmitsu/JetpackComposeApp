@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.feature.reminder.R
+import com.example.reminder.R
 import com.example.ui.component.SaveButton
 import com.example.ui.theme.BaseAppTheme
 
