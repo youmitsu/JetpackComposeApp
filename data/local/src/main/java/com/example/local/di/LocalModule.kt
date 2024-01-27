@@ -25,4 +25,8 @@ object LocalModule {
     @Singleton
     @Provides
     fun provideMeigenDao(db: AppDatabase) = db.meigenDao()
+
+    @Singleton
+    @Provides
+    fun provideReminderDao(db: AppDatabase) = db.reminderDao()
 }

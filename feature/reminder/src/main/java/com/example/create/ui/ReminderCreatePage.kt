@@ -1,6 +1,7 @@
 package com.example.create.ui
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -22,36 +23,52 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.feature.reminder.R
 import com.example.ui.component.SaveButton
 import com.example.ui.theme.BaseAppTheme
 
 @Composable
-fun ReminderCreateRoute(navController: NavController) {
-    ReminderCreateScreen(
-        navController = navController
-    )
-}
-
-@Composable
-internal fun ReminderCreateScreen(
+fun ReminderCreatePageHost(
     navController: NavController,
+    viewModel: ReminderCreatePageViewModel = hiltViewModel(),
 ) {
-    ReminderCreate(
+    val pageState = rememberReminderCreatePageState(
+        viewModel = viewModel,
+    )
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.event.collect {
+            when (it) {
+                ReminderCreatePageViewModel.Event.Saved -> {
+                    Toast.makeText(context, R.string.reminder_saved_message, Toast.LENGTH_SHORT)
+                        .show()
+                    navController.navigateUp()
+                }
+            }
+        }
+    }
+
+    ReminderCreatePage(
+        pageState = pageState,
         onClickNavIcon = { navController.navigateUp() },
-        onClickSave = {},
+        onClickSave = viewModel::save,
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun ReminderCreate(
+internal fun ReminderCreatePage(
+    pageState: ReminderCreatePageState,
     onClickNavIcon: () -> Unit,
     onClickSave: () -> Unit,
 ) {
@@ -88,8 +105,8 @@ internal fun ReminderCreate(
             ) {
                 Text(stringResource(id = R.string.reminder_form_title))
                 TextField(
-                    value = "",
-                    onValueChange = {},
+                    value = pageState.title,
+                    onValueChange = pageState.onTitleChange,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(16.dp))
@@ -112,24 +129,24 @@ internal fun ReminderCreate(
                         },
                 )
                 Spacer(Modifier.height(16.dp))
-                Text(stringResource(id = R.string.reminder_form_notification_target))
-                ListItem(
-                    headlineText = {
-                        Text("名言A")
-                    },
-                    trailingContent = {
-                        Icon(Icons.Filled.ArrowRight, contentDescription = "")
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .border(
-                            width = 1.dp,
-                            color = Color.Gray,
-                        )
-                        .clickable {
-                            // TODO:
-                        },
-                )
+//                Text(stringResource(id = R.string.reminder_form_notification_target))
+//                ListItem(
+//                    headlineText = {
+//                        Text(stringResource(id = R.string.reminder_form_notification_target_all))
+//                    },
+//                    trailingContent = {
+//                        Icon(Icons.Filled.ArrowRight, contentDescription = "")
+//                    },
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .border(
+//                            width = 1.dp,
+//                            color = Color.Gray,
+//                        )
+//                        .clickable {
+//                            // TODO:
+//                        },
+//                )
             }
         }
     }
@@ -140,7 +157,12 @@ internal fun ReminderCreate(
 @Composable
 fun ReminderCreatePreview() {
     BaseAppTheme {
-        ReminderCreate(
+        ReminderCreatePage(
+            pageState = ReminderCreatePageState(
+                isSaving = false,
+                title = "title",
+                onTitleChange = {},
+            ),
             onClickNavIcon = {},
             onClickSave = {},
         )
@@ -151,7 +173,12 @@ fun ReminderCreatePreview() {
 @Composable
 fun ReminderCreatePreviewDark() {
     BaseAppTheme {
-        ReminderCreate(
+        ReminderCreatePage(
+            pageState = ReminderCreatePageState(
+                isSaving = false,
+                title = "title",
+                onTitleChange = {},
+            ),
             onClickNavIcon = {},
             onClickSave = {},
         )

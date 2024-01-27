@@ -27,7 +27,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.create.ui.ReminderCreateRoute
+import com.example.create.ui.ReminderCreatePageHost
 import com.example.edit.EditRoute
 import com.example.feature.list.ui.ListRoute
 import com.example.jetpackcomposeapp.R
@@ -138,7 +138,7 @@ fun MainNavigation(navController: NavHostController) {
         composable(
             Screen.ReminderCreate.routeName
         ) {
-            ReminderCreateRoute(navController)
+            ReminderCreatePageHost(navController)
         }
     }
 }
