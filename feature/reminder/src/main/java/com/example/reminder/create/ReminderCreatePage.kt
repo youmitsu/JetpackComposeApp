@@ -1,4 +1,4 @@
-package com.example.create.ui
+package com.example.reminder.create
 
 import android.content.res.Configuration
 import android.widget.Toast

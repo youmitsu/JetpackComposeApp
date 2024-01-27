@@ -27,14 +27,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.create.ui.ReminderCreatePageHost
 import com.example.edit.EditRoute
 import com.example.feature.list.ui.ListRoute
 import com.example.jetpackcomposeapp.R
 import com.example.navigation.BottomNavScreen
 import com.example.navigation.Screen
 import com.example.registration.RegistrationRoute
-import com.example.reminder.ui.ReminderRoute
+import com.example.reminder.create.ReminderCreatePageHost
+import com.example.reminder.list.ReminderListPageHost
 
 sealed class BottomNavItem(
     val screen: BottomNavScreen,
@@ -117,7 +117,7 @@ fun MainNavigation(navController: NavHostController) {
                         ListRoute(navController)
                     }
                     composable(route = BottomNavScreen.ReminderSetting.route) {
-                        ReminderRoute()
+                        ReminderListPageHost(navController)
                     }
                 }
             }
