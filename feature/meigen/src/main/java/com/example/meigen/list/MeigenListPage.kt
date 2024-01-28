@@ -36,9 +36,9 @@ import com.example.ui.theme.BaseAppTheme
 import java.util.Date
 
 @Composable
-fun ListRoute(
+fun MeigenListPageHost(
     navController: NavController,
-    listViewModel: ListViewModel = hiltViewModel()
+    listViewModel: MeigenListPageViewModel = hiltViewModel()
 ) {
     val uiState by listViewModel.uiState.collectAsState()
 
@@ -62,7 +62,7 @@ fun ListRoute(
         }
     }
 
-    ListScreen(
+    MeigenListPage(
         onRefresh = listViewModel::refresh,
         onClickEdit = listViewModel::onClickEdit,
         uiState = uiState,
@@ -71,8 +71,8 @@ fun ListRoute(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal fun ListScreen(
-    uiState: ListUiState,
+internal fun MeigenListPage(
+    uiState: MeigenListPageUiState,
     onRefresh: () -> Unit,
     onClickEdit: (id: String) -> Unit,
     modifier: Modifier = Modifier,
@@ -130,8 +130,8 @@ private fun Meigen(title: String, onClickEdit: () -> Unit, modifier: Modifier = 
 @Composable
 fun GreetingPreview() {
     BaseAppTheme {
-        ListScreen(
-            uiState = ListUiState(
+        MeigenListPage(
+            uiState = MeigenListPageUiState(
                 currentItems = listOf(
                     com.example.model.Meigen(
                         id = "1",

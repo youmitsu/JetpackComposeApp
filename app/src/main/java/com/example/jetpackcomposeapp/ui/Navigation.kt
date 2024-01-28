@@ -30,7 +30,7 @@ import androidx.navigation.navArgument
 import com.example.jetpackcomposeapp.R
 import com.example.meigen.create.MeigenCreatePageHost
 import com.example.meigen.edit.MeigenEditPageHost
-import com.example.meigen.list.ListRoute
+import com.example.meigen.list.MeigenListPageHost
 import com.example.navigation.BottomNavScreen
 import com.example.navigation.Screen
 import com.example.reminder.create.ReminderCreatePageHost
@@ -115,7 +115,7 @@ fun MainNavigation(navController: NavHostController) {
                     modifier = Modifier.padding(it)
                 ) {
                     composable(BottomNavScreen.MeigenList.route) {
-                        ListRoute(navController)
+                        MeigenListPageHost(navController)
                     }
                     composable(route = BottomNavScreen.ReminderSetting.route) {
                         ReminderListPageHost(navController)

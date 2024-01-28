@@ -16,11 +16,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ListViewModel @Inject constructor(
+class MeigenListPageViewModel @Inject constructor(
     private val meigenRepository: MeigenRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(ListUiState())
-    val uiState: StateFlow<ListUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(MeigenListPageUiState())
+    val uiState: StateFlow<MeigenListPageUiState> = _uiState.asStateFlow()
 
     private val _onEditClickEvent = Channel<String>(Channel.UNLIMITED)
     val onEditClickEvent = _onEditClickEvent.receiveAsFlow()
