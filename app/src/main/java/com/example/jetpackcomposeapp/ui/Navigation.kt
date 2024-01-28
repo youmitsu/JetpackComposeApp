@@ -28,7 +28,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.jetpackcomposeapp.R
-import com.example.meigen.create.RegistrationRoute
+import com.example.meigen.create.MeigenCreatePageHost
 import com.example.meigen.edit.EditRoute
 import com.example.meigen.list.ListRoute
 import com.example.navigation.BottomNavScreen
@@ -124,7 +124,7 @@ fun MainNavigation(navController: NavHostController) {
             }
         }
         composable(Screen.Register.routeName) {
-            RegistrationRoute(navController)
+            MeigenCreatePageHost(navController)
         }
         composable(
             Screen.Edit.routeName, arguments = listOf(

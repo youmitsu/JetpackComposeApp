@@ -27,20 +27,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.meigen.R
-import com.example.meigen.create.ui.RegistrationUiState
-import com.example.meigen.create.ui.RegistrationViewModel
 import com.example.ui.component.SaveButton
 import com.example.ui.theme.BaseAppTheme
 
 @Composable
-fun RegistrationRoute(navController: NavController) {
-    RegistrationScreen(navController)
-}
-
-@Composable
-fun RegistrationScreen(
+fun MeigenCreatePageHost(
     navController: NavController,
-    viewModel: RegistrationViewModel = hiltViewModel()
+    viewModel: MeigenCreatePageViewModel = hiltViewModel()
 ) {
     val state = viewModel.uiState.collectAsState()
     val context = LocalContext.current
@@ -51,7 +44,7 @@ fun RegistrationScreen(
         }
     }
 
-    Registration(
+    MeigenCreatePage(
         navController = navController,
         state = state.value,
         onUpdateTitle = viewModel::onUpdateTitle,
@@ -61,9 +54,9 @@ fun RegistrationScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Registration(
+fun MeigenCreatePage(
     navController: NavController,
-    state: RegistrationUiState,
+    state: MeigenCreatePageUiState,
     onUpdateTitle: (value: String) -> Unit,
     onClickSave: () -> Unit,
 ) {
@@ -117,9 +110,9 @@ fun Registration(
 @Composable
 fun RegistrationUiPreview() {
     val navController = rememberNavController()
-    val state = RegistrationUiState()
+    val state = MeigenCreatePageUiState()
     BaseAppTheme {
-        Registration(
+        MeigenCreatePage(
             navController = navController,
             state = state,
             onUpdateTitle = {},
@@ -132,9 +125,9 @@ fun RegistrationUiPreview() {
 @Composable
 fun DarkRegistrationUiPreview() {
     val navController = rememberNavController()
-    val state = RegistrationUiState()
+    val state = MeigenCreatePageUiState()
     BaseAppTheme {
-        Registration(
+        MeigenCreatePage(
             navController = navController,
             state = state,
             onUpdateTitle = {},

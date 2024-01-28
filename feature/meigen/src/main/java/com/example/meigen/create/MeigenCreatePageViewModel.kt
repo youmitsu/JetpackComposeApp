@@ -1,4 +1,4 @@
-package com.example.meigen.create.ui
+package com.example.meigen.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,10 +19,10 @@ import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
-class RegistrationViewModel @Inject constructor(
+class MeigenCreatePageViewModel @Inject constructor(
     private val meigenRepository: MeigenRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(RegistrationUiState())
+    private val _uiState = MutableStateFlow(MeigenCreatePageUiState())
     val uiState = _uiState.asStateFlow()
 
     private val _onSavedEvent = MutableSharedFlow<Unit>(
