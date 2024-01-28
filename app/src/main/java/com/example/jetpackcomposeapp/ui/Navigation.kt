@@ -29,7 +29,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.jetpackcomposeapp.R
 import com.example.meigen.create.MeigenCreatePageHost
-import com.example.meigen.edit.EditRoute
+import com.example.meigen.edit.MeigenEditPageHost
 import com.example.meigen.list.ListRoute
 import com.example.navigation.BottomNavScreen
 import com.example.navigation.Screen
@@ -133,7 +133,7 @@ fun MainNavigation(navController: NavHostController) {
         ) {
             val meigenId = it.arguments?.getString(Screen.Edit.argumentName)
             meigenId?.let { id ->
-                EditRoute(id = id, navController = navController)
+                MeigenEditPageHost(id = id, navController = navController)
             } ?: throw IllegalArgumentException("meigenId is null")
         }
         composable(

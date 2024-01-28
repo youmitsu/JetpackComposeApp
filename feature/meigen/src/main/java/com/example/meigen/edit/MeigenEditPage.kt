@@ -34,15 +34,10 @@ import com.example.ui.theme.BaseAppTheme
 import java.util.Date
 
 @Composable
-fun EditRoute(id: String, navController: NavController) {
-    EditScreen(id, navController)
-}
-
-@Composable
-fun EditScreen(
+fun MeigenEditPageHost(
     id: String,
     navController: NavController,
-    viewModel: EditViewModel = hiltViewModel(),
+    viewModel: MeigenEditPageViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
@@ -64,7 +59,7 @@ fun EditScreen(
             }
         }
     }
-    Edit(
+    MeigenEditPage(
         state = uiState,
         onUpdateBody = viewModel::onUpdateBody,
         onClickNavIcon = { navController.navigateUp() },
@@ -75,8 +70,8 @@ fun EditScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Edit(
-    state: EditUiState,
+fun MeigenEditPage(
+    state: MeigenEditPageUiState,
     onUpdateBody: (String) -> Unit,
     onClickNavIcon: () -> Unit,
     onClickSave: () -> Unit,
@@ -146,8 +141,8 @@ fun EditPreview() {
         createdAt = Date()
     )
     BaseAppTheme {
-        Edit(
-            state = EditUiState(
+        MeigenEditPage(
+            state = MeigenEditPageUiState(
                 id = meigen.id,
                 body = meigen.body,
                 meigen = meigen,
@@ -169,8 +164,8 @@ fun EditPreviewDark() {
         createdAt = Date()
     )
     BaseAppTheme {
-        Edit(
-            state = EditUiState(
+        MeigenEditPage(
+            state = MeigenEditPageUiState(
                 id = meigen.id,
                 body = meigen.body,
                 meigen = meigen,

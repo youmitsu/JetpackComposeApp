@@ -20,10 +20,10 @@ enum class EditEvent {
 }
 
 @HiltViewModel
-class EditViewModel @Inject constructor(
+class MeigenEditPageViewModel @Inject constructor(
     private val meigenRepository: MeigenRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(EditUiState())
+    private val _uiState = MutableStateFlow(MeigenEditPageUiState())
     val uiState = _uiState.asStateFlow()
 
     private val _onSavedEvent = Channel<EditEvent>(Channel.UNLIMITED)
