@@ -46,6 +46,7 @@ class ReminderCreatePageViewModel @Inject constructor(
                 val reminder = Reminder(
                     id = reminderId,
                     title = title,
+                    enabled = true,
                     createdAt = Date(),
                 )
                 withContext(Dispatchers.IO) {
