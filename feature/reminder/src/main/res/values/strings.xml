@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="reminder_create_app_bar_title">リマインダーを登録</string>
+    <string name="reminder_edit_app_bar_title">リマインダーを編集</string>
     <string name="reminder_form_title">タイトル</string>
     <string name="reminder_form_notification_frequency">通知の頻度</string>
     <string name="reminder_form_notification_target">通知対象の名言</string>
     <string name="reminder_form_notification_target_all">すべて</string>
 
     <string name="reminder_saved_message">登録しました。</string>
+    <string name="reminder_updated_message">更新しました。</string>
 </resources>

@@ -1,6 +1,5 @@
-package com.example.reminder.create
+package com.example.reminder.edit
 
-import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,46 +26,46 @@ import com.example.ui.component.SaveButton
 import com.example.ui.theme.BaseAppTheme
 
 @Composable
-fun ReminderCreatePageHost(
+fun ReminderEditPageHost(
     navController: NavController,
-    viewModel: ReminderCreatePageViewModel = hiltViewModel(),
+    reminderId: String,
+    viewModel: ReminderEditPageViewModel = hiltViewModel(),
 ) {
-    val pageState = rememberReminderCreatePageState(
+    val context = LocalContext.current
+    val pageState = rememberReminderEditPageState(
         viewModel = viewModel,
     )
-    val context = LocalContext.current
-
+    LaunchedEffect(Unit) {
+        viewModel.load(reminderId)
+    }
     LaunchedEffect(Unit) {
         viewModel.event.collect {
             when (it) {
-                ReminderCreatePageViewModel.Event.Saved -> {
-                    Toast.makeText(context, R.string.reminder_saved_message, Toast.LENGTH_SHORT)
+                ReminderEditPageViewModel.Event.Updated -> {
+                    Toast.makeText(context, R.string.reminder_updated_message, Toast.LENGTH_SHORT)
                         .show()
                     navController.navigateUp()
                 }
             }
         }
     }
-
-    ReminderCreatePage(
+    ReminderEditPage(
         pageState = pageState,
-        onClickNavIcon = { navController.navigateUp() },
-        onClickSave = viewModel::save,
+        onClickNavIcon = { navController.navigateUp() }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun ReminderCreatePage(
-    pageState: ReminderCreatePageState,
+fun ReminderEditPage(
+    pageState: ReminderEditPageState,
     onClickNavIcon: () -> Unit,
-    onClickSave: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(stringResource(id = R.string.reminder_create_app_bar_title))
+                    Text(stringResource(id = R.string.reminder_edit_app_bar_title))
                 },
                 navigationIcon = {
                     IconButton(onClick = onClickNavIcon) {
@@ -79,11 +78,11 @@ internal fun ReminderCreatePage(
                 actions = {
                     SaveButton(
                         isLoading = false,
-                        onClick = onClickSave
+                        onClick = pageState.onClickSave
                     )
                 }
             )
-        },
+        }
     ) {
         Box(
             modifier = Modifier
@@ -98,35 +97,18 @@ internal fun ReminderCreatePage(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun ReminderCreatePreview() {
+fun ReminderEditPagePreview() {
     BaseAppTheme {
-        ReminderCreatePage(
-            pageState = ReminderCreatePageState(
-                isSaving = false,
+        ReminderEditPage(
+            pageState = ReminderEditPageState(
+                isLoading = false,
                 title = "title",
                 onTitleChange = {},
+                onClickSave = {}
             ),
-            onClickNavIcon = {},
-            onClickSave = {},
-        )
-    }
-}
-
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun ReminderCreatePreviewDark() {
-    BaseAppTheme {
-        ReminderCreatePage(
-            pageState = ReminderCreatePageState(
-                isSaving = false,
-                title = "title",
-                onTitleChange = {},
-            ),
-            onClickNavIcon = {},
-            onClickSave = {},
+            onClickNavIcon = {}
         )
     }
 }

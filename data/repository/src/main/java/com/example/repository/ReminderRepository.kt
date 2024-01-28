@@ -12,6 +12,7 @@ interface ReminderRepository {
     suspend fun get(reminderId: String): Reminder
     suspend fun getAll(): List<Reminder>
     fun save(reminder: Reminder)
+    suspend fun upsert(reminder: Reminder)
 }
 
 class ReminderRepositoryImpl @Inject constructor(
@@ -36,5 +37,10 @@ class ReminderRepositoryImpl @Inject constructor(
     override fun save(reminder: Reminder) {
         val serialized = reminder.toEntity()
         reminderDao.insertAll(serialized)
+    }
+
+    override suspend fun upsert(reminder: Reminder) {
+        val serialized = reminder.toEntity()
+        reminderDao.upsert(serialized)
     }
 }

@@ -3,8 +3,8 @@ package com.example.reminder.list
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,6 +35,7 @@ fun ReminderListPageHost(
 ) {
     val pageState = rememberReminderListPageState(
         viewModel = viewModel,
+        navController = navController,
     )
     LaunchedEffect(Unit) {
         viewModel.load()
@@ -52,13 +53,15 @@ internal fun ReminderListPage(
 ) {
     LazyColumn(
         modifier = Modifier.padding(8.dp),
-        contentPadding = PaddingValues(vertical = 8.dp),
     ) {
         items(pageState.reminders) {
             ReminderItem(
+                id = it.id,
                 title = it.title,
                 enabled = it.enabled,
+                onClick = pageState.onClickListItem,
             )
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
@@ -66,12 +69,17 @@ internal fun ReminderListPage(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ReminderItem(
+    id: String,
     title: String,
     enabled: Boolean,
+    onClick: (String) -> Unit,
 ) {
     Card(
         modifier = Modifier
-            .height(130.dp)
+            .height(130.dp),
+        onClick = {
+            onClick(id)
+        },
     ) {
         Column(
             modifier = Modifier
@@ -113,7 +121,8 @@ fun ReminderListPagePreview() {
                         enabled = true,
                         createdAt = Date(),
                     ),
-                )
+                ),
+                onClickListItem = {}
             )
         )
     }
@@ -132,7 +141,8 @@ fun ReminderListPagePreviewDark() {
                         enabled = true,
                         createdAt = Date(),
                     ),
-                )
+                ),
+                onClickListItem = {}
             )
         )
     }

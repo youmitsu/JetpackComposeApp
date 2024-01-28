@@ -27,13 +27,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.jetpackcomposeapp.R
+import com.example.meigen.create.RegistrationRoute
 import com.example.meigen.edit.EditRoute
 import com.example.meigen.list.ListRoute
-import com.example.jetpackcomposeapp.R
 import com.example.navigation.BottomNavScreen
 import com.example.navigation.Screen
-import com.example.meigen.create.RegistrationRoute
 import com.example.reminder.create.ReminderCreatePageHost
+import com.example.reminder.edit.ReminderEditPageHost
 import com.example.reminder.list.ReminderListPageHost
 
 sealed class BottomNavItem(
@@ -139,6 +140,15 @@ fun MainNavigation(navController: NavHostController) {
             Screen.ReminderCreate.routeName
         ) {
             ReminderCreatePageHost(navController)
+        }
+        composable(
+            Screen.ReminderEdit.routeName, arguments = listOf(
+                navArgument(Screen.ReminderEdit.argumentName) { type = NavType.StringType },
+            )
+        ) {
+            val reminderId = it.arguments?.getString(Screen.ReminderEdit.argumentName)
+                ?: throw IllegalArgumentException("reminderId is null")
+            ReminderEditPageHost(navController, reminderId = reminderId)
         }
     }
 }

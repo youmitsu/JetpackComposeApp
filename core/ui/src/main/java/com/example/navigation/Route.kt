@@ -27,6 +27,7 @@ sealed class Screen(val route: String, val argumentName: String = "") {
     object Edit : Screen("/meigen", "meigenId")
 
     object ReminderCreate : Screen("/reminder/create")
+    object ReminderEdit : Screen("/reminder/edit", "reminderId")
 }
 
 sealed class BottomNavScreen(val route: String) {
