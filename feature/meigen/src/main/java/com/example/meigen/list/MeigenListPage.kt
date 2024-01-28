@@ -3,6 +3,7 @@ package com.example.meigen.list
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -81,7 +82,11 @@ internal fun MeigenListPage(
         refreshing = uiState.isRefreshing,
         onRefresh = onRefresh
     )
-    Box(modifier = modifier.pullRefresh(state)) {
+    Box(
+        modifier = modifier
+            .pullRefresh(state)
+            .fillMaxSize(),
+    ) {
         LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
             items(items = uiState.currentItems) { item ->
                 Meigen(title = item.body, onClickEdit = { onClickEdit(item.id) })
