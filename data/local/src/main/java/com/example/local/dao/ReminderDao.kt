@@ -19,4 +19,7 @@ interface ReminderDao {
 
     @Query("SELECT * FROM reminders ORDER BY createdAt DESC")
     suspend fun getAll(): List<Reminder>
+
+    @Query("DELETE FROM reminders WHERE id = :id")
+    suspend fun deleteById(id: String)
 }

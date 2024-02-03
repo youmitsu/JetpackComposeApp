@@ -13,9 +13,7 @@ interface MeigenRepository {
     suspend fun get(meigenId: String): Meigen
     suspend fun getAll(): List<Meigen>
     suspend fun save(meigen: Meigen)
-
     suspend fun upsert(meigen: Meigen)
-
     suspend fun delete(meigenId: String)
 }
 

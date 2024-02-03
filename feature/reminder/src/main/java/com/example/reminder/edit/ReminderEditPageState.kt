@@ -7,6 +7,7 @@ data class ReminderEditPageState(
     val title: String = "",
     val onTitleChange: (String) -> Unit,
     val onClickSave: () -> Unit,
+    val onClickDelete: () -> Unit,
 )
 
 @Composable
@@ -15,11 +16,15 @@ fun rememberReminderEditPageState(
 ): ReminderEditPageState {
     val isLoading = viewModel.isLoading
     val title = viewModel.title
+    val onTitleChange = viewModel::onTitleChange
+    val onClickSave = viewModel::update
+    val onClickDelete = viewModel::delete
 
     return ReminderEditPageState(
         isLoading = isLoading,
         title = title,
-        onTitleChange = viewModel::onTitleChange,
-        onClickSave = viewModel::update,
+        onTitleChange = onTitleChange,
+        onClickSave = onClickSave,
+        onClickDelete = onClickDelete,
     )
 }

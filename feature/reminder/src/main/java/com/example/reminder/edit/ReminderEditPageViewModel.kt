@@ -22,6 +22,7 @@ class ReminderEditPageViewModel @Inject constructor(
 
     sealed class Event {
         object Updated : Event()
+        object Deleted: Event()
     }
 
     private val _event = Channel<Event>()
@@ -64,6 +65,21 @@ class ReminderEditPageViewModel @Inject constructor(
                     )
                 }
                 _event.send(Event.Updated)
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
+    fun delete() {
+        val reminder = reminder ?: return
+        isLoading = true
+        viewModelScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    reminderRepository.delete(reminder.id)
+                }
+                _event.send(Event.Deleted)
             } finally {
                 isLoading = false
             }

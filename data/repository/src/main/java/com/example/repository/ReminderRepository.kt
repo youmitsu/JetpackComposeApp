@@ -13,6 +13,7 @@ interface ReminderRepository {
     suspend fun getAll(): List<Reminder>
     fun save(reminder: Reminder)
     suspend fun upsert(reminder: Reminder)
+    suspend fun delete(reminderId: String)
 }
 
 class ReminderRepositoryImpl @Inject constructor(
@@ -42,5 +43,9 @@ class ReminderRepositoryImpl @Inject constructor(
     override suspend fun upsert(reminder: Reminder) {
         val serialized = reminder.toEntity()
         reminderDao.upsert(serialized)
+    }
+
+    override suspend fun delete(reminderId: String) {
+        reminderDao.deleteById(reminderId)
     }
 }
