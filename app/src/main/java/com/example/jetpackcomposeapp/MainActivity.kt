@@ -4,13 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.LaunchedEffect
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.jetpackcomposeapp.ui.MainNavigation
+import com.example.jetpackcomposeapp.navigation.MainNavigation
+import com.example.jetpackcomposeapp.ui.MainViewModel
+import com.example.jetpackcomposeapp.ui.rememberMainPageState
 import com.example.onboarding.ui.Onboarding
 import com.example.ui.theme.BaseAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,18 +26,24 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun MeigenApp(
-    modifier: Modifier = Modifier,
+    mainViewModel: MainViewModel = hiltViewModel(),
 ) {
-    var onboardingDisplayed by remember {
-        mutableStateOf(false)
-    }
     val navController = rememberNavController()
 
+    val pageState = rememberMainPageState(
+        mainViewModel,
+    )
+
+    LaunchedEffect(Unit) {
+        pageState.loadOnInit()
+    }
+
     BaseAppTheme {
-        if (!onboardingDisplayed)
-            Onboarding(navController = navController, onClick = {
-                onboardingDisplayed = true
-            })
+        if (!pageState.onboardingCompleted)
+            Onboarding(
+                navController = navController,
+                onClick = pageState.onClickOnboardingComplete
+            )
         else
             MainNavigation(navController)
     }

@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.base.kapt3.KaptOptions
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 @Suppress("DSL_SCOPE_VIOLATION") // Remove when fixed https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
     alias(libs.plugins.sample.android.application)
@@ -23,6 +20,7 @@ dependencies {
     implementation(project(":feature:meigen"))
     implementation(project(":feature:reminder"))
     implementation(project(":feature:onboarding"))
+    implementation(project(":data:repository"))
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
@@ -34,6 +32,7 @@ dependencies {
     implementation(libs.androidx.compose.navigation)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Compose
     implementation(platform(libs.androidx.compose.bom))

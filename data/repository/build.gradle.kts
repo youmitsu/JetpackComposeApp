@@ -11,6 +11,7 @@ dependencies {
     implementation(project(":model"))
     implementation(project(":data:api"))
     implementation(project(":data:local"))
+    implementation(project(":data:preferences"))
     implementation(libs.kotlinx.coroutines.android)
 
     // Unit testing

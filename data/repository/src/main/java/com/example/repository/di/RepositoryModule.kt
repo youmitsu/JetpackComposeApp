@@ -1,5 +1,7 @@
 package com.example.repository.di
 
+import com.example.repository.LaunchFlagRepository
+import com.example.repository.LaunchFlagRepositoryImpl
 import com.example.repository.MeigenRepository
 import com.example.repository.MeigenRepositoryImpl
 import com.example.repository.ReminderRepository
@@ -18,4 +20,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindReminderRepository(impl: ReminderRepositoryImpl): ReminderRepository
+
+    @Binds
+    abstract fun bindLaunchFlagRepository(impl: LaunchFlagRepositoryImpl): LaunchFlagRepository
 }

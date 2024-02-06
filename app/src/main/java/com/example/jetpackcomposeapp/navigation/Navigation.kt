@@ -1,4 +1,4 @@
-package com.example.jetpackcomposeapp.ui
+package com.example.jetpackcomposeapp.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
