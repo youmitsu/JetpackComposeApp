@@ -9,6 +9,7 @@ data class ReminderListPageState(
     val reminders: List<Reminder> = emptyList(),
     val isLoading: Boolean = false,
     val onClickListItem: (String) -> Unit,
+    val onSwitchChanged: (Reminder, Boolean) -> Unit,
 )
 
 @Composable
@@ -18,12 +19,14 @@ fun rememberReminderListPageState(
 ): ReminderListPageState {
     val isLoading = viewModel.isLoading
     val reminders = viewModel.reminders
+    val onSwitchChanged = viewModel::onSwitchChanged
 
     return ReminderListPageState(
         isLoading = isLoading,
         reminders = reminders,
         onClickListItem = {
             navController.navigate(Screen.ReminderEdit.createRoute(it))
-        }
+        },
+        onSwitchChanged = onSwitchChanged
     )
 }

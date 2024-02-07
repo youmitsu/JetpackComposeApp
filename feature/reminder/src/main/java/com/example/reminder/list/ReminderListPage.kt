@@ -54,12 +54,13 @@ internal fun ReminderListPage(
     LazyColumn(
         modifier = Modifier.padding(8.dp),
     ) {
-        items(pageState.reminders) {
+        items(pageState.reminders) { reminder ->
             ReminderItem(
-                id = it.id,
-                title = it.title,
-                enabled = it.enabled,
+                id = reminder.id,
+                title = reminder.title,
+                enabled = reminder.enabled,
                 onClick = pageState.onClickListItem,
+                onCheckedChange = { pageState.onSwitchChanged(reminder, it) }
             )
             Spacer(modifier = Modifier.height(8.dp))
         }
@@ -73,6 +74,7 @@ private fun ReminderItem(
     title: String,
     enabled: Boolean,
     onClick: (String) -> Unit,
+    onCheckedChange: (Boolean) -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -93,7 +95,7 @@ private fun ReminderItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text = title)
-                Switch(checked = enabled, onCheckedChange = {})
+                Switch(checked = enabled, onCheckedChange = onCheckedChange)
             }
             Divider()
             Row(
@@ -122,7 +124,8 @@ fun ReminderListPagePreview() {
                         createdAt = Date(),
                     ),
                 ),
-                onClickListItem = {}
+                onClickListItem = {},
+                onSwitchChanged = { _, _ -> }
             )
         )
     }
@@ -142,7 +145,8 @@ fun ReminderListPagePreviewDark() {
                         createdAt = Date(),
                     ),
                 ),
-                onClickListItem = {}
+                onClickListItem = {},
+                onSwitchChanged = { _, _ -> }
             )
         )
     }
