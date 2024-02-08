@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.model.ReminderTime
 import com.example.reminder.R
 import com.example.reminder.common.ReminderForm
 import com.example.reminder.common.ReminderFormState
@@ -100,6 +101,7 @@ fun ReminderEditPage(
         Box(
             modifier = Modifier
                 .padding(it)
+                .padding(horizontal = 4.dp)
                 .fillMaxSize()
         ) {
             ReminderForm(
@@ -138,6 +140,10 @@ fun ReminderEditPagePreview() {
                 reminderFormState = ReminderFormState(
                     title = "title",
                     onTitleChange = {},
+                    times = listOf(
+                        ReminderTime(12, 0),
+                        ReminderTime(18, 0),
+                    )
                 )
             ),
             onClickNavIcon = {}

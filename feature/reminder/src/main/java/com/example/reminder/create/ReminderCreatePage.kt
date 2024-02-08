@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.model.ReminderTime
 import com.example.reminder.R
 import com.example.reminder.common.ReminderForm
 import com.example.reminder.common.ReminderFormState
@@ -109,6 +110,10 @@ fun ReminderCreatePreview() {
                 reminderFormState = ReminderFormState(
                     title = "title",
                     onTitleChange = {},
+                    times = listOf(
+                        ReminderTime(12, 0),
+                        ReminderTime(18, 0),
+                    ),
                 )
             ),
             onClickNavIcon = {},
@@ -127,6 +132,10 @@ fun ReminderCreatePreviewDark() {
                 reminderFormState = ReminderFormState(
                     title = "title",
                     onTitleChange = {},
+                    times = listOf(
+                        ReminderTime(12, 0),
+                        ReminderTime(18, 0),
+                    ),
                 )
             ),
             onClickNavIcon = {},

@@ -7,4 +7,9 @@ data class Reminder(
     val title: String,
     val enabled: Boolean,
     val createdAt: Date,
+) {}
+
+data class ReminderTime(
+    val hour: Int,
+    val minute: Int,
 )
