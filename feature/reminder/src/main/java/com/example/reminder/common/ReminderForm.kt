@@ -15,25 +15,49 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.reminder.R
+import com.example.ui.theme.BaseAppTheme
+
+data class ReminderFormState(
+    // title
+    val title: String,
+    val onTitleChange: (String) -> Unit,
+)
+
+@Composable
+fun rememberReminderFormState(
+    title: String,
+    onTitleChange: (String) -> Unit,
+): ReminderFormState {
+    return remember(
+        title,
+        onTitleChange,
+    ) {
+        ReminderFormState(
+            title = title,
+            onTitleChange = onTitleChange,
+        )
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReminderForm(
-    title: String,
-    onTitleChange: (String) -> Unit,
+    state: ReminderFormState,
 ) {
     Column(
         modifier = Modifier.padding(horizontal = 8.dp)
     ) {
         Text(stringResource(id = R.string.reminder_form_title))
         TextField(
-            value = title,
-            onValueChange = onTitleChange,
+            value = state.title,
+            onValueChange = state.onTitleChange,
             modifier = Modifier.fillMaxWidth(),
         )
         Spacer(Modifier.height(16.dp))
@@ -74,5 +98,18 @@ fun ReminderForm(
 //                            // TODO:
 //                        },
 //                )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ReminderFormPreview() {
+    BaseAppTheme {
+        ReminderForm(
+            state = ReminderFormState(
+                title = "title",
+                onTitleChange = {},
+            )
+        )
     }
 }

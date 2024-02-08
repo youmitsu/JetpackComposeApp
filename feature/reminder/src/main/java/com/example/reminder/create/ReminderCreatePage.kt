@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.reminder.R
 import com.example.reminder.common.ReminderForm
+import com.example.reminder.common.ReminderFormState
 import com.example.ui.component.SaveButton
 import com.example.ui.theme.BaseAppTheme
 
@@ -91,8 +92,7 @@ internal fun ReminderCreatePage(
                 .fillMaxSize()
         ) {
             ReminderForm(
-                title = pageState.title,
-                onTitleChange = pageState.onTitleChange,
+                state = pageState.reminderFormState,
             )
         }
     }
@@ -106,8 +106,10 @@ fun ReminderCreatePreview() {
         ReminderCreatePage(
             pageState = ReminderCreatePageState(
                 isSaving = false,
-                title = "title",
-                onTitleChange = {},
+                reminderFormState = ReminderFormState(
+                    title = "title",
+                    onTitleChange = {},
+                )
             ),
             onClickNavIcon = {},
             onClickSave = {},
@@ -122,8 +124,10 @@ fun ReminderCreatePreviewDark() {
         ReminderCreatePage(
             pageState = ReminderCreatePageState(
                 isSaving = false,
-                title = "title",
-                onTitleChange = {},
+                reminderFormState = ReminderFormState(
+                    title = "title",
+                    onTitleChange = {},
+                )
             ),
             onClickNavIcon = {},
             onClickSave = {},

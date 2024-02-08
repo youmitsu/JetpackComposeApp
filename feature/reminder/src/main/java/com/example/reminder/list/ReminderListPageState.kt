@@ -27,6 +27,6 @@ fun rememberReminderListPageState(
         onClickListItem = {
             navController.navigate(Screen.ReminderEdit.createRoute(it))
         },
-        onSwitchChanged = onSwitchChanged
+        onSwitchChanged = onSwitchChanged,
     )
 }
